@@ -76,21 +76,21 @@ shuffle($animal);
 shuffle($airRhymes);
 shuffle($synonymsForFun);
 shuffle($synonymsForLaughed);
-$tweet = array("In the ".$adj[0]." ".$color[0]." ".$roomNoun[0].", there was a telephone. And a ".$color[1]." ".$rhymeSet1[0].", and a picture of the ".$animal[0]." jumping over the ".$rhymeSet1[1].".",
-"And there were three ".$adj[1]." ".$rhymeSet2[0]."s sitting on ".$rhymeSet2[1]."s. And two ".$adj[2]." ".$rhymeSet3[0]."s, and a pair of ".$rhymeSet3[1]."s.",
-"And a ".$adj[3]." toy ".$rhymeSet4[0].", and a ".$adj[4]." ".$rhymeSet4[1].". And a ".$animal[1]." and a ".$rhymeSet5[0].", and a bowl full of ".$rhymeSet5[1]."s.",
-"And a ".$adj[5]." ".$adj[6]." lady who was whispering '".$rhymeSet5[2]."'.",
-"Goodnight ".$roomNoun[0].", goodnight ".$rhymeSet1[1].". Goodnight ".$animal[0]." jumping over the ".$rhymeSet1[1].". Goodnight light and the ".$color[1]." ".$rhymeSet1[0].".",
-"Goodnight ".$rhymeSet2[0]."s, goodnight ".$rhymeSet2[1]."s. Goodnight ".$rhymeSet3[0]."s, and goodnight ".$rhymeSet3[1]."s. Goodnight ".$adj[3]." ".$rhymeSet4[0].", and goodnight ".$rhymeSet4[1].".",
-"Goodnight ".$animal[1].", and goodnight ".$rhymeSet5[0].". Goodnight nobody, goodnight ".$rhymeSet5[1]."s. And goodnight to the ".$adj[6]." lady whispering '".$rhymeSet5[2]."'.",
-"Goodnight ".$rhymeSet6[0]."s, goodnight ".$airRhymes[0].", goodnight ".$rhymeSet6[1]."s everywhere.");
 
-// sleep for 40 seconds
-sleep(40);
+$tweet = array("In the ".$adj[0]." ".$color[0]." ".$roomNoun[0].", there was a telephone. And a ".$color[1]." ".$rhymeSet1[0].", and a picture of the ".$animal[0]." jumping over the ".$rhymeSet1[1].". And there were three ".$adj[1]." ".$rhymeSet2[0]."s sitting on ".$rhymeSet2[1]."s. And two ".$adj[2]." ".$rhymeSet3[0]."s, and a pair of ".$rhymeSet3[1]."s.",
+
+"And a ".$adj[3]." toy ".$rhymeSet4[0].", and a ".$adj[4]." ".$rhymeSet4[1].". And a ".$animal[1]." and a ".$rhymeSet5[0].", and a bowl full of ".$rhymeSet5[1]."s. And a ".$adj[5]." ".$adj[6]." lady who was whispering '".$rhymeSet5[2]."'.",
+
+"Goodnight ".$roomNoun[0].", goodnight ".$rhymeSet1[1].". Goodnight ".$animal[0]." jumping over the ".$rhymeSet1[1].". Goodnight light and the ".$color[1]." ".$rhymeSet1[0].". Goodnight ".$rhymeSet2[0]."s, goodnight ".$rhymeSet2[1]."s. Goodnight ".$rhymeSet3[0]."s, and goodnight ".$rhymeSet3[1]."s. Goodnight ".$adj[3]." ".$rhymeSet4[0].", and goodnight ".$rhymeSet4[1].".",
+
+"Goodnight ".$animal[1].", and goodnight ".$rhymeSet5[0].". Goodnight nobody, goodnight ".$rhymeSet5[1]."s. And goodnight to the ".$adj[6]." lady whispering '".$rhymeSet5[2]."'. Goodnight ".$rhymeSet6[0]."s, goodnight ".$airRhymes[0].", goodnight ".$rhymeSet6[1]."s everywhere.");
+
+// don't sleep for 40 seconds
+//sleep(40);
 
 foreach ($tweet as &$tweetLine) {
-  if(strlen($tweetLine) > 140)// If tweet is already too long, shorten it.
-    $tweetLine = substr($tweetLine, 0, 140);
+  if(strlen($tweetLine) > 280)// If tweet is already too long, shorten it.
+    $tweetLine = substr($tweetLine, 0, 280);
   if ($newTweetCount == 0) {
     $twitter->post('statuses/update', array('status' => $tweetLine));// Post tweet
   }else{
@@ -99,8 +99,8 @@ foreach ($tweet as &$tweetLine) {
   $newTweetCount++;// Add one to output counter
   echo "<br/>";echo $newTweetCount." ".$tweetLine."\n";echo "<br/>";// If bot is run manually, user will see the final tweet.
 
-  // sleep for 2 seconds
-  sleep(2);
+  // don't sleep for 2 seconds
+  //sleep(2);
   $myLastTweet = $twitter->get('statuses/user_timeline', array('user_id' => $myUserInfo->id_str, 'count' => 1));// Use ShouldBot's info to get ShouldBot's last tweet
 }
 
