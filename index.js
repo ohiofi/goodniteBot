@@ -1,15 +1,15 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-// let Twit = require('twit');
-// var T = new Twit({
-//   consumer_key:         process.env.CONSUMER_KEY,
-//   consumer_secret:      process.env.CONSUMER_SECRET,
-//   access_token:         process.env.ACCESS_KEY,
-//   access_token_secret:  process.env.ACCESS_SECRET,
-//   timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
-//   strictSSL:            true,     // optional - requires SSL certificates to be valid.
-// });
+let Twit = require('twit');
+var T = new Twit({
+  consumer_key:         process.env.CONSUMER_KEY,
+  consumer_secret:      process.env.CONSUMER_SECRET,
+  access_token:         process.env.ACCESS_KEY,
+  access_token_secret:  process.env.ACCESS_SECRET,
+  timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
+  strictSSL:            true,     // optional - requires SSL certificates to be valid.
+});
 
 function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -18,12 +18,6 @@ function shuffle(a) {
     }
 }
 
-//let randomReply = new Array();// Create a new array called randomReply
-let newTweetCount = 0;// Set the tweets count to zero
-//let lastTweetScreenName = NULL;
-
-//let myUserInfo = twitter->get('account/verify_credentials');// Get ShouldBot's info
-//let myLastTweet = twitter->get('statuses/user_timeline', new Array('user_id' => myUserInfo->id_str, 'count' => 1));// Use ShouldBot's info to get ShouldBot's last tweet
 let airRhymes = new Array("bear","millionaire","chocolate éclair","black bear","multimillionaire","cinnamon bear","grizzly bear","teddy bear","polar bear","arctic hare","air","hair","mare","pear","pair","chair","square","hare","fair","county fair","flair","flare","heir","lair","snare","questionaire","Voltaire","Pierre");
 const rhymes = new Array(
   new Array("mail","whale","jail","sail","kale","ale","hail","nail","pail","rail","tail","tale","veil","Yale"),
@@ -115,19 +109,36 @@ function generateText(){
   );
 }
 
-// foreach (tweet as &tweetLine) {
-//   if(strlen(tweetLine) > 280)// If tweet is already too long, shorten it.
-//     tweetLine = substr(tweetLine, 0, 280);
-//   if (newTweetCount == 0) {
-//     twitter->post('statuses/update', new Array('status' => tweetLine));// Post tweet
-//   }else{
-//     twitter->post('statuses/update', new Array('status' => tweetLine,'in_reply_to_status_id' => myLastTweet[0]->id_str));// Post tweet
-//   }
-//   newTweetCount++;// Add one to output counter
-//   echo "<br/>";echo newTweetCount." ".tweetLine."\n";echo "<br/>";// If bot is run manually, user will see the final tweet.
-// }
+function twitterCallback(err, data, response) {
+  if(err){
+    console.log("Oof. Error. "+err)
+  } else {
+    console.log("It worked.")
+  }
+}
+
+function tweetIt(tweetText){
+  let tweetObj = { status: tweetText };
+  T.post('statuses/update', tweetObj, twitterCallback)
+  console.log("Posted:\n"+tweetText)
+}
+
+function sayGoodnight(){
+  let myArray = generateText();
+  for(let i=0;i<myArray.length;i++){
+    tweetIt(myArray[i])
+  }
+}
+
+sayGoodnight();
+
+setInterval(()=>{
+  tweetIt(sayGoodnight())
+}, 1000*60*60*2); //ms*s*m*h
+
+
 
 app.listen(
   process.env.PORT || 3000,
-  ()=>console.log("bot running\n"+generateText())
+  ()=>console.log("bot running")
 );
