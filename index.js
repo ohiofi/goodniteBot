@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-let Twit = require('twit');
-var T = new Twit({
+const Twit = require('twit');
+const T = new Twit({
   consumer_key:         process.env.CONSUMER_KEY,
   consumer_secret:      process.env.CONSUMER_SECRET,
   access_token:         process.env.ACCESS_KEY,
@@ -10,6 +10,22 @@ var T = new Twit({
   timeout_ms:           60*1000,  // optional HTTP request timeout to apply to all requests.
   strictSSL:            true,     // optional - requires SSL certificates to be valid.
 });
+
+// const myUserInfo = T.get('account/verify_credentials', { skip_status: true })
+//   .catch(function (err) {
+//     console.log('caught error', err.stack)
+//   })
+//   .then(function (result) {
+//     // `result` is an Object with keys "data" and "resp".
+//     // `data` and `resp` are the same objects as the ones passed
+//     // to the callback.
+//     // See https://github.com/ttezel/twit#tgetpath-params-callback
+//     // for details.
+//     console.log('data', result.data);
+//   });// Get ShouldBot's info
+//let myLastTweet = $twitter->get('statuses/user_timeline', array('user_id' => $myUserInfo->id_str, 'count' => 1));// Use ShouldBot's info to get ShouldBot's last tweet
+
+//let tweetCount = 0;
 
 function shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) {
@@ -51,7 +67,7 @@ const rhymes = new Array(
   new Array("tweet","beet","feet","heat","meat","seat","street","treat","wheat")
 );
 
-const adj = new Array("abandoned","aggressive","altruistic","annoying","anxious","athletic","attractive","awesome","beautiful","big","big headed","big nosed","bite-sized","black","bland","blue","booger eater","booger eating crum-bum","bouncy","bright","calm","chubby","chunky","clear-cut","clumsy","colossal","confused","cool","courageous","cowardly","crazy","creepy","crippled","cute","dangerous","dark","deformed","dense","depressed","dinosaur-armed","dirty","disgusting","dishonest","dizzy","do do dunderhead","dull","dumb","elliptical","embarrassed","enormous","evil","excited","faceless","fast","fat","fearful","flat","fluffy","friendly","fun","funky","funny","furious","fuzzy","gangsta","geek","ghetto","giant","gigantic","gnarly","gray","green","gross","grouchy","gucci","hairy","happy","heartbroken","hideous","hillbilly","huge","humongous","idiot","imaginative","immature","inappropriate","indigo","intelligent","interested","invisible","kind","lame","lime green","lonely","loser","lowkey","lovely","magenta","mature","mean","mentally unstable","microscopic","multi-headed","mysterious","mystical","nerd","nerdy","nervous","nonfunctional","obedient","obese","oblivious","observant","obsessed","on fleek","one eyed","orange","outgoing","oversized","overweight","pale","paranoid","peaceful","pitiful","pleasant","poor","popular","possessed","predictable","pretty","proud","pudgy","puking","purple","quiet","random","ratchet","rebellious","red","redneck","rested","robotic","round","rusty","sad","salty","savage","scared","scrawny","sharp","short","shy","skinny","sly","small","smart","smelly","sneaky","soft","speechless","squishy","stinky","strong","stupid","sunny","sweet","tall","tame","tan","thin","thug","tiny","touchy","turquoise","twitchy","tyrannical","ugly","unappealing","unattractive","vexed","vulgar","weird","weirdo","white","wide","yellow","young");
+const adj = new Array("abandoned","aggressive","altruistic","annoying","anxious","athletic","attractive","awesome","beautiful","big","big headed","big nosed","bite-sized","black","bland","blue","booger eater","booger eating","bouncy","bright","calm","chubby","chunky","clear-cut","clumsy","colossal","confused","cool","courageous","cowardly","crazy","creepy","crippled","cute","dangerous","dark","deformed","dense","depressed","dinosaur-armed","dirty","disgusting","dishonest","dizzy","do do dunderhead","dull","dumb","elliptical","embarrassed","enormous","evil","excited","faceless","fast","fat","fearful","flat","fluffy","friendly","fun","funky","funny","furious","fuzzy","gangsta","geek","ghetto","giant","gigantic","gnarly","gray","green","gross","grouchy","gucci","hairy","happy","heartbroken","hideous","hillbilly","huge","humongous","idiot","imaginative","immature","inappropriate","indigo","intelligent","interested","invisible","kind","lame","lime green","lonely","loser","lowkey","lovely","magenta","mature","mean","mentally unstable","microscopic","multi-headed","mysterious","mystical","nerd","nerdy","nervous","nonfunctional","obedient","obese","oblivious","observant","obsessed","on fleek","one eyed","orange","outgoing","oversized","overweight","pale","paranoid","peaceful","pitiful","pleasant","poor","popular","possessed","predictable","pretty","proud","pudgy","puking","purple","quiet","random","ratchet","rebellious","red","redneck","rested","robotic","round","rusty","sad","salty","savage","scared","scrawny","sharp","short","shy","skinny","sly","small","smart","smelly","sneaky","soft","speechless","squishy","stinky","strong","stupid","sunny","sweet","tall","tame","tan","thin","thug","tiny","touchy","turquoise","twitchy","tyrannical","ugly","unappealing","unattractive","vexed","vulgar","weird","weirdo","white","wide","yellow","young");
 
 const animal = new Array("alien","alligator","ant","arctic seal","bat","bear","bigfoot","bird","blobfish","Bulbasaur","bull","bunnies","bush baby","calf","camel","cat","cerberus","Charizard","cheetah","chicken","clown fish","clownfish","cougar","cow","coyote","crab","cricket","crocodile","cyclops","deer","dodo","dog","dolphin","dragon","drop bear","duck","eagle","Eevee","elephant","elk","fish","flamingo","foal","fox","frog","gazelle","geese","giraffe","goldfish","gorgon","grizzly bear","groundhog","hippocampus","horse","horses","human","hydra","jellyfish","Jigglypuff","kangaroo","kitten","kittens","koala","komodo dragon","leopard","lion","lizard","loch ness monster","Magikarp","meerkat","megalodon","mermaid","mice","mink","minotaur","monkey","mouse","mule","narwhal","newt","ogre","ostrich","owl","panda","peacock","pegasus","phoenix","Pikachu","pig","pizzaduck","Pokémon","pufferfish","puppies","puppy","rabbit","raccoon","rat","raven","scorpion","shark","sheep","shrimp","sloth","snake","sparrow","spider","squirrel","Squirtle","sting ray","stingray","tapir","tiger","toucan","troll","tropical shrimp","turkey","turtle","tyrannosaurus rex","unicorn","uniduck","vampire","velociraptor","weasel","werewolf","wild cat","wild dog","wolf","yeti","zebra","zebras","zombie");
 
@@ -117,24 +133,51 @@ function twitterCallback(err, data, response) {
   }
 }
 
-function tweetIt(tweetText){
-  let tweetObj = { status: tweetText };
-  T.post('statuses/update', tweetObj, twitterCallback)
-  console.log("Posted:\n"+tweetText)
-}
+// function tweetIt(tweetText, replyId){
+//   let tweetObj = {
+//     status: tweetText,
+//     in_reply_to_status_id: replyId};
+//   T.post('statuses/update', tweetObj, twitterCallback)
+//   console.log("Posted:\n"+tweetText)
+// }
+
+// Wrapping my code in a promise wrapper...
+let post_promise = require('util').promisify( // Wrap post function w/ promisify to allow for sequential posting.
+  (options, data, cb) => T.post(
+    options,
+    data,
+    (err, ...results) => cb(err, results)
+  )
+);
+
+// Async/await for the results of the previous post, get the id...
+const tweet_crafter = async (array, id) => {
+  for(let i = 0; i < array.length; i++){
+    let content = await post_promise('statuses/update', { status: array[i], in_reply_to_status_id: id }).catch(err => console.log(err));;
+    id = content[0].id_str;
+  };
+};
+
+const tweetIt = (first, subsequent) => {
+  post_promise('statuses/update', { status: `${first}` })
+    .then((top_tweet) => {
+        console.log(`${top_tweet[0].text} tweeted!`);
+        let starting_id = top_tweet[0].id_str; // Get top-line tweet ID...
+        tweet_crafter(subsequent, starting_id);
+    })
+    .catch(err => console.log(err));
+};
 
 function sayGoodnight(){
   let myArray = generateText();
-  for(let i=0;i<myArray.length;i++){
-    tweetIt(myArray[i])
-  }
+  tweetIt(myArray[0],[myArray[1],myArray[2],myArray[3]])
 }
 
 sayGoodnight();
 
 setInterval(()=>{
-  tweetIt(sayGoodnight())
-}, 1000*60*60*2); //ms*s*m*h
+  sayGoodnight()
+}, 1000*60*60*3); //ms*s*m*h
 
 
 
