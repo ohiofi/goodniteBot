@@ -1,0 +1,29 @@
+{
+  "name": "goodnitebot",
+  "version": "1.0.0",
+  "description": "A twitterbot that generates new versions of Goodnight Moon.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ohiofi/goodniteBot.git"
+  },
+  "keywords": [
+    "twitter",
+    "bot",
+    "book",
+    "poetry"
+  ],
+  "author": "Justin Riley",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ohiofi/goodniteBot/issues"
+  },
+  "homepage": "https://github.com/ohiofi/goodniteBot#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "twit": "^2.2.11"
+  }
+}
