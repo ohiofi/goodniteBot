@@ -24,6 +24,8 @@
   "homepage": "https://github.com/ohiofi/goodniteBot#readme",
   "dependencies": {
     "dotenv": "^8.2.0",
-    "twit": "^2.2.11"
+    "express": "^4.17.1",
+    "twit": "^2.2.11",
+    "util": "^0.12.3"
   }
 }
